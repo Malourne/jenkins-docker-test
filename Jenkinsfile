@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t malourne/jenkins-docker-hub .'
+        sh 'docker build -t malourne/jenkins-docker-test .'
       }
     }
     stage('Login') {
@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push malourne/jenkins-docker-hub'
+        sh 'docker push malourne/jenkins-docker-test'
       }
     }
   }
