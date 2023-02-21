@@ -16,7 +16,7 @@ node {
 
     stage('Login') {
       steps {
-        sh 'echo dockerHub | docker login -u dockerHub --password-stdin'
+        sh 'echo docker-Hub | docker login -u malourne --password-stdin'
       }
     }
     stage('Push') {
