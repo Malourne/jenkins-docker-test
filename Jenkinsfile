@@ -14,20 +14,10 @@ node {
         app = docker.build("malourne/jenkins-docker-test")
     }
 
-    stage('Login') {
-      steps {
-        sh 'echo dckr_pat_x38sM_6dBsc476DciOJ9AAun-W0 | docker login -u malourne --password-stdin'
-      }
-    }
-    stage('Push') {
-      steps {
-        sh 'docker push malourne/jenkins-docker-test'
-      }
-    }
-  }
-  post {
-    always {
-      sh 'docker logout'
-    }
+    stage('Push image') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
     }
 }
