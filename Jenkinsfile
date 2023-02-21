@@ -14,20 +14,9 @@ node {
         app = docker.build("malourne/jenkins-docker-test")
     }
 
-    stage('Login') {
-      steps {
-        sh 'echo dckr_pat_x38sM_6dBsc476DciOJ9AAun-W0 | docker login -u malourne --password-stdin'
-      }
-    }
-    stage('Push') {
-      steps {
-        sh 'docker push malourne/jenkins-docker-test'
-      }
-    }
-  }
-  post {
-    always {
-      sh 'docker logout'
-    }
-  }
+stage('Push image') {
+        withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://hub.docker.com/repositories/malourne" ]) {
+        dockerImage.push()
+        }
+    } 
 }
